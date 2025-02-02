@@ -7,7 +7,7 @@ app = FastAPI()
 
 # Load marks from JSON file
 current_dir = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(current_dir, 'marks.json')
+json_path = os.path.join(current_dir, 'q-vercel-python.json')
 
 with open(json_path) as f:
     MARK_DB = json.load(f)
