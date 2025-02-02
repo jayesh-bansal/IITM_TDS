@@ -1,10 +1,19 @@
-from fastapi import FastAPI, Query
-from mangum import Mangum
+from flask import Flask, request, jsonify
 import json
-import os
 
-app = FastAPI()
+app = Flask(__name__)
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello, World!"}
+with open('marks.json', 'r') as f:
+    marks_data = json.load(f)
+
+@app.route('/api', methods=['GET'])
+def get_marks():
+    names = request.args.getlist('name')
+    marks = [marks_data.get(name, None) for name in names]
+    return jsonify({"marks": marks})
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET'
+    return response
