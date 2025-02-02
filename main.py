@@ -18,8 +18,9 @@ with open(json_path) as f:
 
 @app.get("/api")
 async def get_marks(names: list[str] = Query(...)):
-    return {
-        "marks": [MARK_DB.get(name, None) for name in names]
-    }
+    try:
+        return {"marks": [MARK_DB.get(name) for name in names]}
+    except Exception as e:
+        raise HTTPException(500, detail=str(e))
 
 handler = Mangum(app)
