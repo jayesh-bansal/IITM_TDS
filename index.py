@@ -1,19 +1,20 @@
-from flask import Flask, request, jsonify
-import json
+from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
+from typing import List
 
-app = Flask(__name__)
+app = FastAPI()
 
-with open('q-vercel-python.json', 'r') as f:
-    marks_data = json.load(f)
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.route('/api', methods=['GET'])
-def get_marks():
-    names = request.args.getlist('name')
-    marks = [marks_data.get(name, None) for name in names]
-    return jsonify({"marks": marks})
-
-@app.after_request
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'GET'
-    return response
+@app.get("/api")
+async def get_marks(name: List[str] = Query(None)):
+    # For this example, we're using static marks
+    marks = [10, 20]
+    return {"marks": marks}
