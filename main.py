@@ -1,7 +1,21 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
+from mangum import Mangum
+import json
+import os
 
 app = FastAPI()
 
-@app.get("/api?name={marks1}&name={marks2}")
-def marks():
-    return {"marks": [marks1, marks2] )
+# Load marks from JSON file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+json_path = os.path.join(current_dir, 'marks.json')
+
+with open(json_path) as f:
+    MARK_DB = json.load(f)
+
+@app.get("/api")
+async def get_marks(names: list[str] = Query(...)):
+    return {
+        "marks": [MARK_DB.get(name, None) for name in names]
+    }
+
+handler = Mangum(app)
