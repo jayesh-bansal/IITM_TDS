@@ -3,7 +3,7 @@ import json
 
 app = Flask(__name__)
 
-with open('marks.json', 'r') as f:
+with open('q-vercel-python.json', 'r') as f:
     marks_data = json.load(f)
 
 @app.route('/api', methods=['GET'])
