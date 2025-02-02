@@ -6,6 +6,6 @@ app = FastAPI()
 def read_root():
     return {"message": "Hello, World!"}
 
-@app.get("?{marks1}&?{marks2}")
+@app.get("?name={marks1}&?name={marks2}")
 def marks():
     return {"marks": [marks1, marks2] )
