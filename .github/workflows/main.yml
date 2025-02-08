@@ -1,10 +1,8 @@
-name: TDS GA4
+name: Daily Commit
 
 on:
   schedule:
-    # Run at 12:30 PM UTC (6:00 PM IST) every day
-    - cron: '42 11 * * *'
-  workflow_dispatch: 
+    - cron: '30 12 * * *'
 
 jobs:
   create-daily-commit:
@@ -12,6 +10,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
 
       - name: Set up Git
         run: |
@@ -24,4 +24,5 @@ jobs:
           git add daily_update.txt
           git commit -m "Daily automated commit"
           git push
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
