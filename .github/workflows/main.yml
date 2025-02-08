@@ -11,7 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.PAT }}
+          token: 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
 
       - name: Set up Git
         run: |
@@ -25,4 +25,4 @@ jobs:
           git commit -m "Daily automated commit"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: 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
