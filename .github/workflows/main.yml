@@ -3,27 +3,23 @@ name: Daily Commit
 on:
   schedule:
     - cron: '30 12 * * *'
-  workflow_dispatch:
 
 jobs:
   create-daily-commit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PAT }}
-
-      - name: Set up Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        uses: actions/checkout@v3
 
       - name: Create daily commit (24f1001895@ds.study.iitm.ac.in)
         run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           echo "Daily update: $(date)" >> daily_update.txt
           git add daily_update.txt
           git commit -m "Daily automated commit"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
