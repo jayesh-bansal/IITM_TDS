@@ -1,0 +1,17 @@
+name: GA4 TDS
+
+on:
+  schedule:
+    # Runs at 00:00 UTC every day
+    - cron: "0 0 * * *"
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  scrape-imdb:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 24f1001895@ds.study.iitm.ac.in
+        uses: print("24f1001895@ds.study.iitm.ac.in")
