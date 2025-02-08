@@ -14,4 +14,4 @@ jobs:
 
     steps:
       - name: 24f1001895@ds.study.iitm.ac.in
-        uses: print("24f1001895@ds.study.iitm.ac.in")
+        run: echo "24f1001895@ds.study.iitm.ac.in"
