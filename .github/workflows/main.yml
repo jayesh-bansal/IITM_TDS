@@ -1,6 +1,0 @@
-
-jobs:
-  test:
-    steps:
-      - name: 24f1001895@ds.study.iitm.ac.in
-        run: echo "Hello, world!"
