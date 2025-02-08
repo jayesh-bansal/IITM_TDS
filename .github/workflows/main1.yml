@@ -1,17 +1,26 @@
-name: GA4 TDS
+name: TDS GA4
 
 on:
   schedule:
-    # Runs at 00:00 UTC every day
-    - cron: "4 17 * * *"
-workflow_dispatch:
+    # Run at 12:30 PM UTC (6:00 PM IST) every day
+    - cron: '7 17 * * *'
 
 jobs:
-  scrape-imdb:
+  create-daily-commit:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
-      - name: 24f1001895@ds.study.iitm.ac.in
-        run: echo "24f1001895@ds.study.iitm.ac.in"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+
+      - name: Create daily commit (24f1001895@ds.study.iitm.ac.in)
+        run: |
+          echo "Daily update: $(date)" >> daily_update.txt
+          git add daily_update.txt
+          git commit -m "Daily automated commit"
+          git push
+
