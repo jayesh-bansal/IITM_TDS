@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          token: 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
+          token: secrets.PAT
 
       - name: Set up Git
         run: |
